@@ -148,6 +148,81 @@ public class Main {
         System.out.println(str1+" isBalancedUsingDeque: "+ isBalancedUsingDeque(str1));
         System.out.println(str2+" isBalancedUsingDeque: "+ isBalancedUsingDeque(str2));
         //is balanced? true/false
+
+
+        String strPad = "ABC";
+        System.out.printf("%15s \n", strPad );
+        int n = 9;
+        System.out.printf("%03d",n);
+
+
+        ZeroFinder zeroFinder = new ZeroFinder();
+        System.out.println("zeroFinder 1041: "+ zeroFinder.solution(1041));
+        System.out.println("zeroFinder 15: "+ zeroFinder.solution(15));
+        System.out.println("zeroFinder 32: "+ zeroFinder.solution(32));
+        System.out.println("zeroFinder 328: "+ zeroFinder.solution(328)+ " should be 2");
+        System.out.println("zeroFinder 66561: "+ zeroFinder.solution(66561)+ " should be 9");
+
+        int[] A = {1,2,3,4} ;
+        int[] B = {3,8,9,7,6};
+        System.out.println("queue rotate [1,2,3,4],4: "+ IntStream.of(zeroFinder.solution2(A,4)).mapToObj(String::valueOf).toList()+ " should be [1, 2, 3, 4]");
+        System.out.println("queue rotate [3,8,9,7,6],3 "+ IntStream.of(zeroFinder.solution2(B,3)).mapToObj(String::valueOf).toList()+ " should be [9, 7, 6, 3, 8]");
+        System.out.println("queue rotate [],3 "+ IntStream.of(zeroFinder.solution2(B,3)).mapToObj(String::valueOf).toList()+ " should be [9, 7, 6, 3, 8]");
+
+        int[][] testCases = {
+                {1, 3, 6, 4, 1, 2},
+                {-1, -3, -6, -4, -1, -2},
+                {1, 2, 3, 4, 5},
+                {1, 2, 3, 4, 5, 7},
+                {1, 1, 2, 2, 3, 3},
+                {},
+                {1000000, 1000001, 1000003, 1000004}
+        };
+
+        int[] expectedResults = {5, 1, 6, 6, 4, 1, 1000002};
+
+        for (int i = 0; i < testCases.length; i++) {
+            int[] testCase = testCases[i];
+            int minPositiveVal = ZeroFinder.solution(testCase);
+            System.out.println("Test " + (i+1) + ": " + minPositiveVal);
+            // Add assertions here if needed
+            //assertResult(testCase, minPositiveVal, expectedResults[i]);
+        }
+
+        System.out.println("All test cases executed!");
+
+
+        int[][] testCases2 = {
+                {}, // Empty Array
+                {1, 2, 3, 4, 5}, // All Elements Present
+                {2, 3, 4, 5}, // One Element Missing at the Beginning
+                {1, 2, 3, 4}, // One Element Missing at the End
+                {1, 2, 4, 5}, // One Element Missing in the Middle
+                {}, // All Elements Missing
+                {3, 3, 3, 3}, // All Elements Same
+                {5, 3, 4, 1, 2}, // Random Order with No Missing
+                {5, 3, 1, 2} // Random Order with One Missing
+        };
+        int[] expectedResults2 = {1, 6, 1, 5, 3, 1, 1, 6, 4};
+
+        for (int i = 0; i < testCases2.length; i++) {
+            int[] testCase = testCases2[i];
+            int expectedResult = expectedResults2[i];
+
+            System.out.println("Evaluating Array: " + IntStream.of(testCase).mapToObj(String::valueOf).toList());
+            int result4 = ZeroFinder.solution4(testCase);
+            System.out.println("Result: " + result4 + " | Correct Answer: " + expectedResult);
+            assertResult(result4, expectedResult);
+            System.out.println();
+        }
+    }
+
+    public static void assertResult(int[] input, int result, int expected) {
+        assert expected == result : "Test failed for input: " + Arrays.toString(input) +
+                ", expected: " + expected + ", actual: " + result;
+    }
+    public static void assertResult(int input, int expected) {
+        assert input == expected : "Test failed for input: " + input + ", expected: " + expected + ", actual: " + input;
     }
 
     public static boolean isBalanced(String str) {
@@ -156,7 +231,7 @@ public class Main {
                 .mapToObj(c -> Character.valueOf((char)c).toString())
                 .collect(Collectors.toCollection(LinkedList::new));
 
-        System.out.println("linkedList elements: "+ linkedList.toString());
+        System.out.println("linkedList elements: "+ linkedList);
 
         while (linkedList.size() >= 1) {
             if(linkedList.getFirst().compareTo("{") == 0 && linkedList.getLast().compareTo("}") == 0) {
