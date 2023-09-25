@@ -97,6 +97,37 @@ class ZeroFinder {
         return odd;
     }
 
+    /**
+     * intermediate solution fails in performance
+     * @param A
+     * @return
+     */
+    public static int solutionB(int[] A) {
+        int val = 1;
+        if(A == null || A.length == 0) {
+            return val;
+        }
+        if(A.length > 1){
+            List<Integer> list = Arrays.stream(A)
+                    .boxed()
+                    .sorted()
+                    .filter(i -> i > 0)
+                    .collect(Collectors.toCollection(LinkedHashSet::new)).stream().toList();
+
+            if(list.isEmpty()) return 1;
+
+            val = IntStream.range(1, list.size()+1)
+                    .filter(i -> !list.contains(i))
+                    .findFirst().orElse(list.size()+1);
+        }
+        return val;
+    }
+
+    /**
+     * worst solution
+     * @param A
+     * @return
+     */
     public static int solution(int[] A) {
         Set<Integer> set = IntStream.of(A)
                 .boxed()
@@ -119,6 +150,9 @@ class ZeroFinder {
         return last <= 0 ? 1 : val;
     }
 
+    /**
+     * best solution
+     */
     public static int solution2(int[] A) {
         Set<Integer> set = Arrays.stream(A).boxed().collect(Collectors.toSet());
         int smallestPositive = 1;

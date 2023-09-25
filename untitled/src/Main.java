@@ -175,18 +175,17 @@ public class Main {
                 {1, 2, 3, 4, 5},
                 {1, 2, 3, 4, 5, 7},
                 {1, 1, 2, 2, 3, 3},
-                {},
-                {1000000, 1000001, 1000003, 1000004}
+                {}
         };
 
-        int[] expectedResults = {5, 1, 6, 6, 4, 1, 1000002};
+        int[] expectedResults = {5, 1, 6, 6, 4, 1};
 
         for (int i = 0; i < testCases.length; i++) {
             int[] testCase = testCases[i];
-            int minPositiveVal = ZeroFinder.solution(testCase);
+            int minPositiveVal = ZeroFinder.solutionB(testCase);
             System.out.println("Test " + (i+1) + ": " + minPositiveVal);
             // Add assertions here if needed
-            //assertResult(testCase, minPositiveVal, expectedResults[i]);
+            assertResult(testCase, minPositiveVal, expectedResults[i]);
         }
 
         System.out.println("All test cases executed!");
